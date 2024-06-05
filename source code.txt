@@ -1,0 +1,36 @@
+SAMPLE CODE 
+// Include the library for the ultrasonic sensor 
+#include <Ultrasonic.h> 
+// Define the pins for the ultrasonic sensor 
+#define TRIG_PIN 12 
+#define ECHO_PIN 11 
+// Define the pin for the alarm 
+#define ALARM_PIN 9 
+// Define the distance threshold (in centimeters) 
+#define DISTANCE_THRESHOLD 1000 // 1000 centimeters = 10 meters 
+// Create an instance of the Ultrasonic sensor 
+Ultrasonic ultrasonic(TRIG_PIN, ECHO_PIN); 
+void setup() { 
+// Initialize the serial communication 
+Serial.begin(9600); 
+// Set the alarm pin as an output 
+pinMode(ALARM_PIN, OUTPUT); 
+} void loop() 
+{ 
+// Measure the distance using the ultrasonic sensor unsigned int 
+distance = ultrasonic.read(); // Convert the distance to meters float 
+distanceMeters = distance / 100.0; // Convert centimeters to meters 
+// Print the distance to the serial monitor 
+Serial.print("Distance: "); 
+Serial.print(distanceMeters); 
+Serial.println(" meters"); 
+// Check if the distance is less than the threshold if (distance > 
+0 && distance <= DISTANCE_THRESHOLD) { 
+// Activate the alarm 
+digitalWrite(ALARM_PIN, HIGH); 
+// Print a message to the serial monitor 
+Serial.println("WARNING: Object detected within 10 meters!"); 
+} else { 
+// Deactivate the alarm 
+digitalWrite(ALARM_PIN, LOW); 
+}
